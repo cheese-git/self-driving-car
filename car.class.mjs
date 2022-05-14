@@ -9,6 +9,7 @@ class Car {
     this.speed = 0
     this.acceleration = 0.2
     this.maxSpeed = 5
+    this.friction = 0.02
     this.color = 'darkblue'
     this.controls = new Controls()
   }
@@ -20,6 +21,10 @@ class Car {
     if (this.controls.reverse && this.speed > -this.maxSpeed / 2) {
       this.speed -= this.acceleration
     }
+
+    if(this.speed > 0) this.speed -= this.friction
+    if(this.speed < 0) this.speed += this.friction
+    
     this.y -= this.speed
   }
 
