@@ -6,24 +6,21 @@ class Car {
     this.y = y
     this.width = width
     this.height = height
-    this.speed = 2
+    this.speed = 0
+    this.acceleration = 0.2
+    this.maxSpeed = 5
     this.color = 'darkblue'
     this.controls = new Controls()
   }
 
   update() {
-    if (this.controls.forward) {
-      this.y -= this.speed
+    if (this.controls.forward && this.speed < this.maxSpeed) {
+      this.speed += this.acceleration
     }
-    if (this.controls.left) {
-      this.x -= this.speed
+    if (this.controls.reverse && this.speed > -this.maxSpeed / 2) {
+      this.speed -= this.acceleration
     }
-    if (this.controls.right) {
-      this.x += this.speed
-    }
-    if (this.controls.reverse) {
-      this.y += this.speed
-    }
+    this.y -= this.speed
   }
 
   draw(ctx) {
