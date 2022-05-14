@@ -22,9 +22,9 @@ class Car {
       this.speed -= this.acceleration
     }
 
-    if(this.speed > 0) this.speed -= this.friction
-    if(this.speed < 0) this.speed += this.friction
-    
+    if (this.speed > 0) this.speed = Math.max(this.speed - this.friction, 0)
+    if (this.speed < 0) this.speed = Math.min(this.speed + this.friction, 0)
+
     this.y -= this.speed
   }
 
