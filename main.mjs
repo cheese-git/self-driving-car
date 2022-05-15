@@ -23,7 +23,7 @@ const traffic = [
   })
 ]
 
-const N = 1000
+const N = 300
 const heroCars = []
 for (let i = 0; i < N; i++) {
   heroCars.push(new HeroCar({
