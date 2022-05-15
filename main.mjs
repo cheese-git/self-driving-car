@@ -7,7 +7,7 @@ canvas.height = window.innerHeight
 
 const ctx = canvas.getContext('2d')
 const road = new Road(100, canvas.width * 0.9)
-const car = new Car(100, 200, 30, 50)
+const car = new Car(road.getLaneCenter(1), 200, 30, 50)
 
 
 animate()
