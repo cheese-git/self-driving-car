@@ -10,28 +10,58 @@ class Car {
     this.height = height
     this.speed = 0
     this.acceleration = 0.2
-    this.maxSpeed = 5
+    this.maxSpeed = 3
     this.friction = 0.02
     this.color = 'darkblue'
     this.controls = new Controls()
     this.sensor = new Sensor(this)
+    this.polygon = this.#createPolygon()
   }
 
   update(borders) {
+    this.polygon = this.#createPolygon()
     this.#move()
     this.sensor.update(borders)
   }
 
   draw(ctx) {
     this.sensor.draw(ctx)
-    
+
     ctx.save()
-    ctx.translate(this.x, this.y)
-    ctx.rotate(-this.angle)
-    ctx.rect(- this.width / 2, - this.height / 2, this.width, this.height)
-    ctx.fillStyle = this.color
+    ctx.moveTo(this.polygon[0].x, this.polygon[0].y)
+    for (let i = 1; i < this.polygon.length; i++) {
+      ctx.lineTo(this.polygon[i].x, this.polygon[i].y)
+    }
     ctx.fill()
     ctx.restore()
+  }
+
+  #createPolygon() {
+    const points = []
+
+    const rad = Math.hypot(this.width, this.height) / 2
+    const alpha = Math.atan2(this.height, this.width)
+
+    points.push(
+      {
+        x: this.x + rad * Math.cos(alpha + this.angle),
+        y: this.y - rad * Math.sin(alpha + this.angle)
+      },
+      {
+        x: this.x - rad * Math.cos(alpha - this.angle),
+        y: this.y - rad * Math.sin(alpha - this.angle)
+      },
+      {
+        x: this.x - rad * Math.cos(alpha + this.angle),
+        y: this.y + rad * Math.sin(alpha + this.angle)
+      },
+      {
+        x: this.x + rad * Math.cos(alpha - this.angle),
+        y: this.y + rad * Math.sin(alpha - this.angle)
+      }
+    )
+
+    return points
   }
 
   #move() {

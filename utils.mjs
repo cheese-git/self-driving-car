@@ -23,6 +23,7 @@ export function getIntersection(A, B, C, D){
 }
 
 const displayer = document.getElementById('data-displayer')
+
 export function displayData(obj){
   displayer.innerText = JSON.stringify(obj, null, 2)
 }
