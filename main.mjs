@@ -53,9 +53,12 @@ function animate(time) {
   carCtx.translate(0, -bestHeroCar.y + carCanvas.height * 0.7)
   road.draw(carCtx)
   traffic.forEach(car => car.draw(carCtx))
+  carCtx.globalAlpha = 0.2
   heroCars.forEach(heroCar => {
     heroCar.draw(carCtx)
   })
+  carCtx.globalAlpha = 1
+  bestHeroCar.draw(carCtx)
   carCtx.restore()
 
 
