@@ -1,8 +1,14 @@
 body {
   background-color: darkgray;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
-#my-canvas {
+#car-canvas {
   background-color: lightgray;
+}
+
+#neural-canvas {
+  background: #000;
 }
