@@ -1,5 +1,6 @@
 import Car from './classes/car.class.mjs'
 import HeroCar from './classes/hero-car.class.mjs'
+import NeuralNetWork from './classes/neural-network.class.mjs'
 import Road from './classes/road.class.mjs'
 import Visualizer from './classes/visualizer.class.mjs'
 
@@ -20,24 +21,36 @@ const traffic = [
     x: road.getLaneCenter(1),
     y: -100,
     color: 'red'
-  })
+  }),
+  new Car({
+    x: road.getLaneCenter(2),
+    y: -100,
+    color: 'red'
+  }),
+  new Car({
+    x: road.getLaneCenter(0),
+    y: -300,
+    color: 'red'
+  }),
+
 ]
 
-const N = 300
+const N = 1
 const heroCars = []
-for (let i = 0; i < N; i++) {
-  heroCars.push(new HeroCar({
-    x: road.getLaneCenter(1),
-    y: 100,
-    color: 'blue'
-  }))
+const firstHeroCar = generateHeroCar()
+if (localStorage.getItem('network')) {
+  firstHeroCar.brain = JSON.parse(localStorage.getItem('network'))
 }
+heroCars.push(firstHeroCar)
+for (let i = 1; i < N; i++) {
+  const car = generateHeroCar()
+  car.brain = JSON.parse(JSON.stringify(firstHeroCar.brain))
+  NeuralNetWork.mutate(car.brain, 1)
+  heroCars.push(car)
+}
+
 
 let bestHeroCar = heroCars[0]
-if(localStorage.getItem('network')) {
-  bestHeroCar.brain = JSON.parse(localStorage.getItem('network'))
-}
-
 
 animate()
 
@@ -70,4 +83,12 @@ function animate(time) {
 
 window.saveTheBestBrain = () => {
   localStorage.setItem('network', JSON.stringify(bestHeroCar.brain))
+}
+
+function generateHeroCar() {
+  return new HeroCar({
+    x: road.getLaneCenter(1),
+    y: 100,
+    color: 'blue'
+  })
 }
