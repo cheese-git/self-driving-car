@@ -1,5 +1,6 @@
 import Sensor from "./sensor.class.mjs"
 import Controls from "./controls.class.mjs"
+import { assertPolygonIntersection } from "../utils.mjs"
 
 class Car {
   constructor(x, y, width, height) {
@@ -16,23 +17,29 @@ class Car {
     this.controls = new Controls()
     this.sensor = new Sensor(this)
     this.polygon = this.#createPolygon()
+
+    this.damaged = false
   }
 
   update(borders) {
     this.polygon = this.#createPolygon()
-    this.#move()
     this.sensor.update(borders)
+    this.damaged = this.#assertDamage(borders)
+    !this.damaged && this.#move()
   }
 
   draw(ctx) {
+    ctx.save()
+
     this.sensor.draw(ctx)
 
-    ctx.save()
     ctx.moveTo(this.polygon[0].x, this.polygon[0].y)
     for (let i = 1; i < this.polygon.length; i++) {
       ctx.lineTo(this.polygon[i].x, this.polygon[i].y)
     }
+    ctx.fillStyle = this.damaged ? 'gray' : 'black'
     ctx.fill()
+
     ctx.restore()
   }
 
@@ -84,6 +91,17 @@ class Car {
 
     this.y -= this.speed * Math.cos(this.angle)
     this.x -= this.speed * Math.sin(this.angle)
+  }
+
+  #assertDamage(roadBorders) {
+    for (let i = 0; i < roadBorders.length; i++) {
+      const touch = assertPolygonIntersection(this.polygon, roadBorders[i])
+      if (touch) {
+        return true
+      }
+    }
+
+    return false
   }
 }
 
