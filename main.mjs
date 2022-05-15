@@ -23,7 +23,7 @@ const traffic = [
   })
 ]
 
-const N = 100
+const N = 1000
 const heroCars = []
 for (let i = 0; i < N; i++) {
   heroCars.push(new HeroCar({
@@ -34,6 +34,9 @@ for (let i = 0; i < N; i++) {
 }
 
 let bestHeroCar = heroCars[0]
+if(localStorage.getItem('network')) {
+  bestHeroCar.brain = JSON.parse(localStorage.getItem('network'))
+}
 
 
 animate()
@@ -48,9 +51,9 @@ function animate(time) {
 
   carCtx.save()
   carCtx.translate(0, -bestHeroCar.y + carCanvas.height * 0.7)
+  road.draw(carCtx)
   traffic.forEach(car => car.draw(carCtx))
   heroCars.forEach(heroCar => {
-    road.draw(carCtx)
     heroCar.draw(carCtx)
   })
   carCtx.restore()
@@ -60,4 +63,8 @@ function animate(time) {
   Visualizer.drawNetwork(neuralCtx, bestHeroCar.brain)
 
   requestAnimationFrame(animate)
+}
+
+window.saveTheBestBrain = () => {
+  localStorage.setItem('network', JSON.stringify(bestHeroCar.brain))
 }
