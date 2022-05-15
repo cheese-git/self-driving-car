@@ -17,22 +17,57 @@ const neuralCtx = neuralCanvas.getContext('2d')
 const road = new Road(100, carCanvas.width * 0.9)
 
 const traffic = [
+  // 超越中间单车
   new Car({
     x: road.getLaneCenter(1),
     y: -100,
     color: 'red'
   }),
+  // 超越右侧单车
   new Car({
     x: road.getLaneCenter(2),
-    y: -100,
-    color: 'red'
-  }),
-  new Car({
-    x: road.getLaneCenter(0),
     y: -300,
     color: 'red'
   }),
-
+  // 超越左侧单车
+  new Car({
+    x: road.getLaneCenter(0),
+    y: -500,
+    color: 'red'
+  }),
+  // 超越左侧双车
+  new Car({
+    x: road.getLaneCenter(0),
+    y: -700,
+    color: 'red'
+  }),
+  new Car({
+    x: road.getLaneCenter(1),
+    y: -700,
+    color: 'red'
+  }),
+  // 右侧双车超越
+  new Car({
+    x: road.getLaneCenter(1),
+    y: -900,
+    color: 'red'
+  }),
+  new Car({
+    x: road.getLaneCenter(2),
+    y: -900,
+    color: 'red'
+  }),
+  // 从中间超车
+  new Car({
+    x: road.getLaneCenter(0),
+    y: -1100,
+    color: 'red'
+  }),
+  new Car({
+    x: road.getLaneCenter(2),
+    y: -1100,
+    color: 'red'
+  }),
 ]
 
 const N = 1
@@ -45,7 +80,7 @@ heroCars.push(firstHeroCar)
 for (let i = 1; i < N; i++) {
   const car = generateHeroCar()
   car.brain = JSON.parse(JSON.stringify(firstHeroCar.brain))
-  NeuralNetWork.mutate(car.brain, 1)
+  NeuralNetWork.mutate(car.brain, 0.2)
   heroCars.push(car)
 }
 
