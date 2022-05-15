@@ -12,6 +12,16 @@ export default class Road {
     const infinity = 1000000
     this.top = -infinity
     this.bottom = infinity
+
+    const leftTop = { x: this.left, y: this.top }
+    const rightTop = { x: this.right, y: this.top }
+    const leftBottom = { x: this.left, y: this.bottom }
+    const rightBottom = { x: this.right, y: this.bottom }
+
+    this.borders = [
+      [leftTop, leftBottom],
+      [rightTop, rightBottom],
+    ]
   }
 
   getLaneCenter(index) {
@@ -23,15 +33,22 @@ export default class Road {
     ctx.strokeStyle = 'white'
     ctx.lineWidth = 5
 
-    for (let i = 0; i <= this.laneCount; i++) {
+    ctx.setLineDash([20, 20])
+    for (let i = 1; i < this.laneCount; i++) {
       const x = lerp(this.left, this.right, i / this.laneCount)
       ctx.beginPath()
       ctx.moveTo(x, this.top)
       ctx.lineTo(x, this.bottom)
-      if (i === 0 || i === this.laneCount) ctx.setLineDash([])
-      else ctx.setLineDash([20, 20])
       ctx.stroke()
-      ctx.closePath()
     }
+
+
+    ctx.setLineDash([])
+    this.borders.forEach(border => {
+      ctx.beginPath()
+      ctx.moveTo(border[0].x, border[0].y)
+      ctx.lineTo(border[1].x, border[1].y)
+      ctx.stroke()
+    })
   }
 }
