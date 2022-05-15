@@ -1,3 +1,5 @@
+import { lerp } from "./utils.mjs"
+
 export default class Road {
   constructor(x, width, laneCount = 3) {
     this.x = x
@@ -16,10 +18,15 @@ export default class Road {
     ctx.strokeStyle = 'white'
     ctx.lineWidth = 5
 
-    ctx.moveTo(this.left, this.top)
-    ctx.lineTo(this.left, this.bottom)
-    ctx.moveTo(this.right, this.top)
-    ctx.lineTo(this.right, this.bottom)
-    ctx.stroke()
+    for (let i = 0; i <= this.laneCount; i++) {
+      const x = lerp(this.left, this.right, i / this.laneCount)
+      ctx.beginPath()
+      ctx.moveTo(x, this.top)
+      ctx.lineTo(x, this.bottom)
+      if (i === 0 || i === this.laneCount) ctx.setLineDash([])
+      else ctx.setLineDash([20, 20])
+      ctx.stroke()
+      ctx.closePath()
+    }
   }
 }
