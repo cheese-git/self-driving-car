@@ -2,8 +2,8 @@ import Sensor from "./sensor.class.mjs"
 import Car from "./car.class.mjs"
 
 export default class HeroCar extends Car {
-  constructor(x, y, width, height) {
-    super(x, y, width, height)
+  constructor(options) {
+    super(options)
     this.maxSpeed = 4
     this.controls.forward = false
     this.controls.bindKeyboardEvents()

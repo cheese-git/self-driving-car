@@ -8,9 +8,15 @@ canvas.height = window.innerHeight
 
 const ctx = canvas.getContext('2d')
 const road = new Road(100, canvas.width * 0.9)
-const heroCar = new HeroCar(road.getLaneCenter(1), 200, 30, 50)
+const heroCar = new HeroCar({
+  x: road.getLaneCenter(1),
+  y: 100
+})
 const traffic = [
-  new Car(road.getLaneCenter(1), 0, 30, 50)
+  new Car({
+    x: road.getLaneCenter(1),
+    y: -100,
+  })
 ]
 
 

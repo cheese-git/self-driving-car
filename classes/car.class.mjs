@@ -2,7 +2,7 @@ import Controls from "./controls.class.mjs"
 import { assertPolygonIntersection } from "../utils.mjs"
 
 class Car {
-  constructor(x, y, width, height) {
+  constructor({x, y, width = 30, height = 50, color}) {
     this.x = x
     this.y = y
     this.angle = 0
@@ -12,7 +12,7 @@ class Car {
     this.acceleration = 0.2
     this.maxSpeed = 2
     this.friction = 0.02
-    this.color = 'darkblue'
+    this.color = color
     this.controls = new Controls()
     this.controls.forward = true
     this.polygon = this.#createPolygon()
