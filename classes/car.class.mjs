@@ -17,9 +17,9 @@ class Car {
     this.sensor = new Sensor(this)
   }
 
-  update() {
+  update(borders) {
     this.#move()
-    this.sensor.update()
+    this.sensor.update(borders)
   }
 
   draw(ctx) {
