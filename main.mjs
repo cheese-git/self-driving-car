@@ -10,12 +10,14 @@ const ctx = canvas.getContext('2d')
 const road = new Road(100, canvas.width * 0.9)
 const heroCar = new HeroCar({
   x: road.getLaneCenter(1),
-  y: 100
+  y: 100,
+  color: 'blue'
 })
 const traffic = [
   new Car({
     x: road.getLaneCenter(1),
     y: -100,
+    color: 'red'
   })
 ]
 

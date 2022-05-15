@@ -33,7 +33,7 @@ class Car {
     for (let i = 1; i < this.polygon.length; i++) {
       ctx.lineTo(this.polygon[i].x, this.polygon[i].y)
     }
-    ctx.fillStyle = this.damaged ? 'gray' : 'black'
+    ctx.fillStyle = this.damaged ? 'gray' : this.color
     ctx.fill()
 
     ctx.restore()
