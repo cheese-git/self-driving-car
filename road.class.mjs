@@ -30,6 +30,7 @@ export default class Road {
   }
 
   draw(ctx) {
+    ctx.save()
     ctx.strokeStyle = 'white'
     ctx.lineWidth = 5
 
@@ -50,5 +51,8 @@ export default class Road {
       ctx.lineTo(border[1].x, border[1].y)
       ctx.stroke()
     })
+    
+    ctx.restore()
   }
+
 }

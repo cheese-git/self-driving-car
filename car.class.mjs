@@ -1,3 +1,4 @@
+import Sensor from "./classes/sensor.class.mjs"
 import Controls from "./controls.class.mjs"
 
 class Car {
@@ -13,13 +14,17 @@ class Car {
     this.friction = 0.02
     this.color = 'darkblue'
     this.controls = new Controls()
+    this.sensor = new Sensor(this)
   }
 
   update() {
     this.#move()
+    this.sensor.update()
   }
 
   draw(ctx) {
+    this.sensor.draw(ctx)
+    
     ctx.save()
     ctx.translate(this.x, this.y)
     ctx.rotate(-this.angle)
