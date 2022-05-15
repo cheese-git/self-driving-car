@@ -1,4 +1,3 @@
-import Sensor from "./sensor.class.mjs"
 import Controls from "./controls.class.mjs"
 import { assertPolygonIntersection } from "../utils.mjs"
 
@@ -11,11 +10,11 @@ class Car {
     this.height = height
     this.speed = 0
     this.acceleration = 0.2
-    this.maxSpeed = 3
+    this.maxSpeed = 2
     this.friction = 0.02
     this.color = 'darkblue'
     this.controls = new Controls()
-    this.sensor = new Sensor(this)
+    this.controls.forward = true
     this.polygon = this.#createPolygon()
 
     this.damaged = false
@@ -23,15 +22,12 @@ class Car {
 
   update(borders) {
     this.polygon = this.#createPolygon()
-    this.sensor.update(borders)
     this.damaged = this.#assertDamage(borders)
     !this.damaged && this.#move()
   }
 
   draw(ctx) {
     ctx.save()
-
-    this.sensor.draw(ctx)
 
     ctx.moveTo(this.polygon[0].x, this.polygon[0].y)
     for (let i = 1; i < this.polygon.length; i++) {

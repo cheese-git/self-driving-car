@@ -4,11 +4,9 @@ export default class Controls {
     this.left = false
     this.right = false
     this.reverse = false
-
-    this.#bindKeyboardEvents()
   }
 
-  #bindKeyboardEvents() {
+  bindKeyboardEvents() {
     document.addEventListener('keydown', e => {
       switch (e.key) {
         case 'ArrowUp':
