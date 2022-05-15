@@ -40,7 +40,8 @@ export default class Sensor {
       ctx.beginPath()
       ctx.moveTo(ray[0].x, ray[0].y)
       ctx.lineTo(end.x, end.y)
-      ctx.strokeStyle = 'yellow'
+      ctx.setLineDash([5, 5])
+      ctx.strokeStyle = this.readings[i] ? 'orange' : '#00ff00'
       ctx.stroke()
     })
   }
