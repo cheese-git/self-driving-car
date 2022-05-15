@@ -11,16 +11,26 @@ export default class Sensor {
 
   }
 
-  update(borders) {
+  update(borders, traffic) {
     this.#spreadRays()
 
     this.readings = []
+
     this.rays.forEach(ray => {
       const intersections = []
 
       borders.forEach(border => {
         const intersection = getIntersection(ray[0], ray[1], border[0], border[1])
         if (intersection) intersections.push(intersection)
+      })
+
+      traffic.forEach(trafficCar => {
+        for (let i = 0; i < trafficCar.polygon.length; i++) {
+          const line = [trafficCar.polygon[i], trafficCar.polygon[(i + 1) % trafficCar.polygon.length]]
+          const intersection = getIntersection(ray[0], ray[1], line[0], line[1])
+          if (intersection) intersections.push(intersection)
+
+        }
       })
 
       if (intersections.length) {

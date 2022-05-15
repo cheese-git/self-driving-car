@@ -26,8 +26,8 @@ animate()
 
 function animate() {
   canvas.height = window.innerHeight
-  heroCar.update(road.borders)
-  traffic.forEach(car => car.update(road.borders))
+  heroCar.update(road.borders, traffic)
+  traffic.forEach(car => car.update(road.borders, [heroCar]))
 
   ctx.save()
   ctx.translate(0, -heroCar.y + canvas.height * 0.7)

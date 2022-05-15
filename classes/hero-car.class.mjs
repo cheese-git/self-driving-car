@@ -10,9 +10,9 @@ export default class HeroCar extends Car {
     this.sensor = new Sensor(this)
   }
 
-  update(borders) {
+  update(borders, traffic) {
     super.update(borders)
-    this.sensor.update(borders)
+    this.sensor.update(borders, traffic)
   }
 
   draw(ctx) {
