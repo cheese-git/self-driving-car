@@ -1,5 +1,5 @@
-import Car from './car.class.mjs'
-import Road from './road.class.mjs'
+import Car from './classes/car.class.mjs'
+import Road from './classes/road.class.mjs'
 
 const canvas = document.getElementById('my-canvas')
 canvas.width = 200

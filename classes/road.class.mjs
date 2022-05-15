@@ -1,4 +1,4 @@
-import { lerp } from "./utils.mjs"
+import { lerp } from "../utils.mjs"
 
 export default class Road {
   constructor(x, width, laneCount = 3) {

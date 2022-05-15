@@ -1,4 +1,4 @@
-import Sensor from "./classes/sensor.class.mjs"
+import Sensor from "./sensor.class.mjs"
 import Controls from "./controls.class.mjs"
 
 class Car {
