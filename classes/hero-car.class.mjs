@@ -11,7 +11,7 @@ export default class HeroCar extends Car {
   }
 
   update(borders, traffic) {
-    super.update(borders)
+    super.update(borders, traffic)
     this.sensor.update(borders, traffic)
   }
 

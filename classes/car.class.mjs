@@ -2,7 +2,7 @@ import Controls from "./controls.class.mjs"
 import { assertPolygonIntersection } from "../utils.mjs"
 
 class Car {
-  constructor({x, y, width = 30, height = 50, color}) {
+  constructor({ x, y, width = 30, height = 50, color }) {
     this.x = x
     this.y = y
     this.angle = 0
@@ -20,10 +20,12 @@ class Car {
     this.damaged = false
   }
 
-  update(borders) {
+  update(borders, traffic) {
     this.polygon = this.#createPolygon()
-    this.damaged = this.#assertDamage(borders)
-    !this.damaged && this.#move()
+    if (this.damaged === false) {
+      this.damaged = this.#assertDamage(borders, traffic)
+      this.#move()
+    }
   }
 
   draw(ctx) {
@@ -89,9 +91,17 @@ class Car {
     this.x -= this.speed * Math.sin(this.angle)
   }
 
-  #assertDamage(roadBorders) {
+  #assertDamage(roadBorders, traffic) {
     for (let i = 0; i < roadBorders.length; i++) {
       const touch = assertPolygonIntersection(this.polygon, roadBorders[i])
+      if (touch) {
+        return true
+      }
+    }
+
+    for (let j = 0; j < traffic.length; j++) {
+      const trafficCar = traffic[j]
+      const touch = assertPolygonIntersection(this.polygon, trafficCar.polygon)
       if (touch) {
         return true
       }
